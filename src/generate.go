@@ -5,11 +5,11 @@ import (
 	"math/big"
 	"math/rand"
 	"sort"
-	//"modernc.org/sortutil"
-	//"github.com/cznic/sortutil"
+	"time"
 )
 
 func Generate(N int) big.Int {
+	rand.Seed(time.Now().UnixNano())
 	quad_residues := Quad_residues(N)
 	rand_index := rand.Intn(len(quad_residues))
 	x := quad_residues[rand_index]
@@ -30,15 +30,12 @@ func Quad_residues(N int) []*big.Int {
 	})
 	fmt.Println(quad)
 
-	keys := make(map[*big.Int]bool)
 	unique_quad := []*big.Int{}
+	unique_quad = append(unique_quad[:], quad[0])
 
 	for _, entry := range quad {
-		value := keys[entry]
-		if value {
-			fmt.Println(value)
-			keys[entry] = true
-			unique_quad = append(unique_quad, entry)
+		if entry.Cmp(unique_quad[len(unique_quad)-1]) != 0 {
+			unique_quad = append(unique_quad[:], entry)
 		}
 	}
 
