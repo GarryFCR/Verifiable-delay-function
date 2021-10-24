@@ -5,6 +5,7 @@ import (
 	"math/big"
 )
 
+//generate N=pq wher p and q are safe primes
 func Setup(lamda int) big.Int {
 	//lamda_rsa := 2*lamda
 	var err bool = true
@@ -21,6 +22,7 @@ func Setup(lamda int) big.Int {
 
 }
 
+//generate safe primes
 func safePrime(bits int) (*big.Int, error) {
 
 	//a := new(big.Int)
