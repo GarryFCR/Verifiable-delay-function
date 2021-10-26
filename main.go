@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/big"
 
 	"github.com/GarryFCR/VDF/src"
 )
@@ -12,5 +13,7 @@ func main() {
 
 	set := src.Generate(15)
 	fmt.Println(set)
+
+	src.Solve(N, *big.NewInt(125), 8, 2)
 
 }
