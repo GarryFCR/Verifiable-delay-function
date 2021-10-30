@@ -7,7 +7,7 @@ import (
 	"math/big"
 )
 
-func Solve(N, x big.Int, t, s int) []big.Int {
+func Solve(N, x big.Int, t, s int) (big.Int, []big.Int) {
 
 	T := math.Pow(2, float64(t))
 	precompute := math.Pow(2, float64(s))
@@ -21,10 +21,10 @@ func Solve(N, x big.Int, t, s int) []big.Int {
 		y = QRN_Exp_plus(y, *power, N)
 		precompute_list = append(precompute_list, y)
 	}
-	fmt.Println(precompute_list)
+	fmt.Println("precompute:", precompute_list)
 
 	proof = generate_proof(t, s, x, N, precompute_list)
-	return proof
+	return y, proof
 
 }
 
@@ -53,7 +53,7 @@ func generate_proof(t, s int, x, N big.Int, precompute_list []big.Int) []big.Int
 	var r_list []big.Int
 	var proof []big.Int
 
-	for i := 1; i < s; i++ {
+	for i := 1; i <= s; i++ {
 
 		ui = ui_new(i, s, N, precompute_list, r_list)
 		xi = xi_new(i, s, x, N, precompute_list, r_list)
@@ -68,7 +68,7 @@ func generate_proof(t, s int, x, N big.Int, precompute_list []big.Int) []big.Int
 
 	}
 
-	for j := s + 1; j < t; j++ {
+	for j := s + 1; j <= t; j++ {
 
 		xi = QRN_Exp_plus(xi, ri, N)
 		xi = QRN_Exp_plus(*xi.Mul(&xi, &ui), *big.NewInt(1), N)
@@ -128,7 +128,7 @@ func ui_new(i, s int, N big.Int, precompute_list, r []big.Int) big.Int {
 			elements = append(elements, precompute_list[2], precompute_list[s])
 		}
 
-		r_list = append(r_list, r[1], *big.NewInt(1))
+		r_list = append(r_list, r[0], *big.NewInt(1))
 
 	} else if i == 3 {
 
@@ -171,7 +171,7 @@ func xi_new(i, s int, x, N big.Int, precompute_list, r []big.Int) big.Int {
 			elements = append(elements, x, precompute_list[3])
 		}
 
-		r_list = append(r_list, r[1], *big.NewInt(1))
+		r_list = append(r_list, r[0], *big.NewInt(1))
 
 	} else if i == 3 {
 
@@ -215,7 +215,7 @@ func yi_new(i, s int, N big.Int, precompute_list, r []big.Int) big.Int {
 			elements = append(elements, precompute_list[3], y)
 		}
 
-		r_list = append(r_list, r[1], *big.NewInt(1))
+		r_list = append(r_list, r[0], *big.NewInt(1))
 
 	} else if i == 3 {
 

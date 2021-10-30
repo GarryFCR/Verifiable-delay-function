@@ -14,18 +14,25 @@ func Verify(x, N, y big.Int, t int, proof []big.Int) bool {
 	signed_quad := Signed_quad_residues(N, quad)
 
 	for _, j := range proof {
-		if sort.Search(len(signed_quad), func(i int) bool {
-			return j.Cmp(&signed_quad[i]) == 0
-		}) == len(signed_quad) {
+
+		pos := sort.Search(len(signed_quad), func(i int) bool {
+			return j.Cmp(&signed_quad[i]) == 0 || j.Cmp(&signed_quad[i]) < 0
+		})
+
+		if pos == len(signed_quad) || j.Cmp(&signed_quad[pos]) != 0 {
 			return false
 		}
 	}
 
 	args := []big.Int{x, y}
+
 	for _, k := range args {
-		if sort.Search(len(signed_quad), func(i int) bool {
-			return k.Cmp(&signed_quad[i]) == 0
-		}) == len(signed_quad) {
+
+		pos1 := sort.Search(len(signed_quad), func(i int) bool {
+			return k.Cmp(&signed_quad[i]) == 0 || k.Cmp(&signed_quad[i]) < 0
+		})
+
+		if pos1 == len(signed_quad) || k.Cmp(&signed_quad[pos1]) != 0 {
 			return false
 		}
 	}

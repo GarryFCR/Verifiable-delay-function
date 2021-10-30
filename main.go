@@ -7,12 +7,23 @@ import (
 )
 
 func main() {
-	N := src.Setup(10)
-	fmt.Println(N.String())
+	N := src.Setup(5)
+	fmt.Println("N:", N.String())
+	fmt.Println()
+	x := src.Generate(N)
+	fmt.Println("x:", x)
+	fmt.Println()
 
-	set := src.Generate(N)
-	fmt.Println(set)
+	y, proof := src.Solve(N, x, 3, 2)
+	fmt.Println()
 
-	//src.Solve(N, *big.NewInt(125), 8, 2)
+	fmt.Println("y:", y)
+	fmt.Println()
+
+	fmt.Println("proof:", proof)
+	fmt.Println()
+
+	ver := src.Verify(x, N, y, 3, proof)
+	fmt.Println("Verification:", ver)
 
 }
