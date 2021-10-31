@@ -6,6 +6,7 @@ import (
 )
 
 //generate N=pq wher p and q are safe primes
+//lamda is the prime size
 func Setup(lamda int) big.Int {
 	//lamda_rsa := 2*lamda
 	var err bool = true
