@@ -18,3 +18,6 @@ Run the Vdf as follows:
 
 ### Improvement
 
+*  Implement Jacobi for testing QRN+ membership
+*  Reduce QRN+ generation time or implement a better method to do  x <---- $QRN+
+
