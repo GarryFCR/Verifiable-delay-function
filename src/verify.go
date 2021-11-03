@@ -32,6 +32,12 @@ func Verify(x, N, y big.Int, t int, proof []big.Int) bool {
 
 	for _, k := range args {
 
+		/*
+			if big.Jacobi(k, &N) == 1 {
+				fmt.Println("True", yyy)
+			}
+		*/
+
 		pos1 := sort.Search(len(signed_quad), func(i int) bool {
 			return k.Cmp(&signed_quad[i]) == 0 || k.Cmp(&signed_quad[i]) < 0
 		})
@@ -53,6 +59,7 @@ func Verify(x, N, y big.Int, t int, proof []big.Int) bool {
 		Ti = T / int(math.Pow(2, float64(i-1)))
 		ri = hashing(N, []big.Int{xi, *big.NewInt(int64(Ti)), yi, ui})
 		//fmt.Printf("%v ", ri)
+		//fmt.Println(ui, xi, yi)
 
 		xi = QRN_Exp_plus(xi, ri, N)
 		xi.Mul(&xi, &ui)
@@ -60,11 +67,16 @@ func Verify(x, N, y big.Int, t int, proof []big.Int) bool {
 
 		temp := QRN_Exp_plus(ui, ri, N)
 		yi = QRN_Exp_plus(*temp.Mul(&temp, &yi), *big.NewInt(1), N)
+		//if i == t {
+		//	fmt.Println(ui, xi, yi)
+		//}
 
 	}
-	fmt.Println()
+
+	//fmt.Println()
+	fmt.Println("here:", xi, yi)
 	xi = QRN_Exp_plus(xi, *big.NewInt(2), N)
-	fmt.Println("here:", yi, xi)
+	fmt.Println("here:", xi, yi)
 	return yi.Cmp(&xi) == 0
 
 }

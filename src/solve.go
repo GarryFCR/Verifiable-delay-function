@@ -81,6 +81,7 @@ func generate_proof(t, s int, x, N big.Int, precompute_list []big.Int) ([]big.In
 		ri = hashing(N, list)
 
 		r_list = append(r_list, ri)
+		//fmt.Println(ui, xi, yi)
 
 	}
 
@@ -106,6 +107,7 @@ func generate_proof(t, s int, x, N big.Int, precompute_list []big.Int) ([]big.In
 		ri = hashing(N, list1)
 
 		r_list = append(r_list, ri)
+		//fmt.Println(ui, xi, yi)
 
 	}
 	//fmt.Println(r_list)

@@ -59,4 +59,16 @@ func main() {
 	fmt.Println()
 	fmt.Println("Verification:", ver)
 
+	/*
+		x := src.Generate(*big.NewInt(15))
+		N := big.NewInt(1)
+		fmt.Println("True", x)
+
+		for i := 0; i < 15; i++ {
+			if big.Jacobi(N, big.NewInt(15)) == 1 {
+				fmt.Println("True", N)
+			}
+			N.Add(N, big.NewInt(1))
+		}
+	*/
 }

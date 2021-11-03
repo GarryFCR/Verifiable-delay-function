@@ -13,7 +13,7 @@ func Generate(N big.Int) big.Int {
 	rand.Seed(time.Now().UnixNano())
 	quad_residues := Quad_residues(N)
 	signed_quad_residues := Signed_quad_residues(N, quad_residues)
-	//fmt.Println(len(signed_quad_residues))
+	//fmt.Println(signed_quad_residues)
 
 	rand_index := rand.Intn(len(signed_quad_residues))
 	x := signed_quad_residues[rand_index]
