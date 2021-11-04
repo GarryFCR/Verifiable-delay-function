@@ -27,14 +27,20 @@ func Quad_residues(N big.Int) []big.Int {
 	//quad := make([]*big.Int, N-1)
 	var quad []big.Int
 	one := big.NewInt(1)
+
 	for one.Cmp(&N) == -1 {
-		element := new(big.Int).Exp(one, big.NewInt(2), &N)
-		quad = append(quad, *element)
+
+		gcd := new(big.Int).GCD(nil, nil, one, &N)
+		if gcd.Cmp(big.NewInt(1)) == 0 {
+			element := new(big.Int).Exp(one, big.NewInt(2), &N)
+			quad = append(quad, *element)
+		}
 		one.Add(one, big.NewInt(1))
+
 	}
 
 	unique_quad := dedupe(quad)
-	//fmt.Println(len(unique_quad))
+	//fmt.Println(unique_quad)
 
 	return unique_quad
 

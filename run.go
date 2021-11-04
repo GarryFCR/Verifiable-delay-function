@@ -58,17 +58,22 @@ func main() {
 	ver := src.Verify(x, N, y, t, proof)
 	fmt.Println()
 	fmt.Println("Verification:", ver)
-
 	/*
+
 		x := src.Generate(*big.NewInt(15))
+		fmt.Println(x)
+
 		N := big.NewInt(1)
-		fmt.Println("True", x)
 
 		for i := 0; i < 15; i++ {
-			if big.Jacobi(N, big.NewInt(15)) == 1 {
-				fmt.Println("True", N)
+
+			gcd := new(big.Int).GCD(nil, nil, N, big.NewInt(15))
+
+			if gcd.Cmp(big.NewInt(1)) == 0 {
+				fmt.Println("True", N, big.Jacobi(N, big.NewInt(15)))
 			}
 			N.Add(N, big.NewInt(1))
 		}
 	*/
+
 }
